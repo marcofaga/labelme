@@ -737,7 +737,14 @@ class Canvas(QtWidgets.QWidget):
             self.update()
         elif key == QtCore.Qt.Key_Return and self.canCloseShape():
             self.finalise()
-
+        elif key ==  QtCore.Qt.Key_Q:
+            if self.current:
+                # Add point to existing shape.
+                if self.createMode == "polygon":
+                    self.current.addPoint(self.line[1])
+                    self.line[0] = self.current[-1]
+                    if self.current.isClosed():
+                        self.finalise()
     def setLastLabel(self, text, flags):
         assert text
         self.shapes[-1].label = text
